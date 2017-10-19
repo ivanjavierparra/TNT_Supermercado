@@ -1,0 +1,211 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.example.ivan.supermercado.AltaProducto">
+
+
+    <LinearLayout
+        android:layout_width="355dp"
+        android:layout_height="491dp"
+        android:orientation="vertical"
+        tools:layout_editor_absoluteX="15dp"
+        tools:layout_editor_absoluteY="10dp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="26dp"
+            android:orientation="horizontal"
+            tools:layout_editor_absoluteX="8dp"
+            tools:layout_editor_absoluteY="8dp">
+
+            <TextView
+                android:id="@+id/lbl_titulo"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="center_horizontal"
+                android:text="Imagen del Producto"
+                android:textStyle="bold"
+                tools:fontFamily="sans-serif-condensed"
+                tools:textSize="24sp" />
+        </LinearLayout>
+
+        <ImageView
+            android:id="@+id/iv_imagen"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            app:srcCompat="@android:drawable/ic_menu_camera"
+            tools:layout_editor_absoluteX="8dp"
+            tools:layout_editor_absoluteY="0dp" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/textView9"
+                android:layout_width="98dp"
+                android:layout_height="wrap_content"
+                android:text="Nombre" />
+
+            <EditText
+                android:id="@+id/txt_nombre"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:ems="10"
+                android:inputType="textPersonName"
+                tools:layout_editor_absoluteX="85dp"
+                tools:layout_editor_absoluteY="34dp" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="53dp"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/textView10"
+                android:layout_width="99dp"
+                android:layout_height="wrap_content"
+                android:text="Codigo" />
+
+            <EditText
+                android:id="@+id/txt_Codigo"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:ems="10"
+                android:inputType="number"
+                tools:layout_editor_absoluteX="85dp"
+                tools:layout_editor_absoluteY="93dp" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="53dp"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/textView12"
+                android:layout_width="99dp"
+                android:layout_height="wrap_content"
+                android:text="Descripcion" />
+
+            <EditText
+                android:id="@+id/txt_Descripcion"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:ems="10"
+                android:inputType="textMultiLine"
+                tools:layout_editor_absoluteX="85dp"
+                tools:layout_editor_absoluteY="149dp" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="61dp"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/textView16"
+                android:layout_width="101dp"
+                android:layout_height="wrap_content"
+                android:text="Imagen" />
+
+            <EditText
+                android:id="@+id/txt_Imagen"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:ems="10"
+                android:enabled="false"
+                android:inputType="textPersonName" />
+
+            <Button
+                android:id="@+id/btn_Imagen"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Foto" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="56dp"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/textView13"
+                android:layout_width="101dp"
+                android:layout_height="wrap_content"
+                android:text="Precio" />
+
+            <EditText
+                android:id="@+id/txt_Precio"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:ems="10"
+                android:inputType="numberDecimal"
+                tools:layout_editor_absoluteX="85dp"
+                tools:layout_editor_absoluteY="207dp" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="52dp"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/textView15"
+                android:layout_width="100dp"
+                android:layout_height="wrap_content"
+                android:text="Cantidad" />
+
+            <EditText
+                android:id="@+id/txt_Cantidad"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:ems="10"
+                android:inputType="number"
+                tools:layout_editor_absoluteX="85dp"
+                tools:layout_editor_absoluteY="260dp" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            tools:layout_editor_absoluteX="8dp"
+            tools:layout_editor_absoluteY="8dp">
+
+            <Button
+                android:id="@+id/btn_Cancelar"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="Cancelar"
+                tools:layout_editor_absoluteX="85dp"
+                tools:layout_editor_absoluteY="332dp" />
+
+            <Button
+                android:id="@+id/btn_Aceptar"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="Aceptar"
+                tools:layout_editor_absoluteX="212dp"
+                tools:layout_editor_absoluteY="332dp" />
+        </LinearLayout>
+
+    </LinearLayout>
+
+</android.support.constraint.ConstraintLayout>
