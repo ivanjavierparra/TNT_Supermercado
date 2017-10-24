@@ -1,0 +1,30 @@
+	    //Creo Producto
+            Producto producto = new Producto();
+            producto.setNombre("Prueba Imagen");
+            producto.setCodigo(1000);
+            producto.setDescripcion("Imagen lalalala");
+            
+	    // converting bitmap to byte array
+            ByteArrayOutputStream stream = new ByteArrayOutputStream();
+            bMap.compress(Bitmap.CompressFormat.PNG, 100, stream);
+            byte[] byteArray = stream.toByteArray();
+
+            producto.setImagen(byteArray);
+            producto.setCantidad(100);
+            producto.setPrecio(200);
+            productoDao.insertInTx(producto);
+            
+		
+
+	    //Recupero producto
+            List<Producto> productos = productoDao.loadAll();
+            for(Producto prod : productos){
+                if (prod.getCodigo()==1000){
+                    byte[] bitmapdata = prod.getImagen(); // let this be your byte array
+                    Bitmap bitmap = BitmapFactory.decodeByteArray(bitmapdata , 0, bitmapdata .length);
+                    img.setImageBitmap(bitmap);
+                    break;
+                }
+
+
+            }
