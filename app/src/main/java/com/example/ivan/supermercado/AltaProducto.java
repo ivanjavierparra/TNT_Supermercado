@@ -3,6 +3,7 @@ package com.example.ivan.supermercado;
 import android.content.Intent;
 import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.support.annotation.FloatRange;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -19,6 +20,7 @@ import com.example.ivan.supermercado.dao.Producto;
 import com.example.ivan.supermercado.dao.ProductoDao;
 import com.example.ivan.supermercado.dao.VentaDao;
 
+import java.io.ByteArrayOutputStream;
 import java.util.List;
 
 import static com.example.ivan.supermercado.MainActivity.productoDao;
@@ -37,7 +39,8 @@ public class AltaProducto extends AppCompatActivity {
     private ImageView img;
     private EditText txt_imagen;
     private Button btnImagen;
-
+    private boolean saco_foto;
+    private Bitmap bMap;
     //private ProductoDao productoDao;
     //private VentaDao ventaDao;
 
@@ -60,6 +63,7 @@ public class AltaProducto extends AppCompatActivity {
         btnImagen = (Button) findViewById(R.id.btn_Imagen);
         img = (ImageView) findViewById(R.id.iv_imagen);
 
+        saco_foto = false;
         /* si existe la bd entonces la creo, sino abro una sesion con ella */
         /*DaoMaster.DevOpenHelper helper = new DaoMaster.DevOpenHelper(this,"mercadodb",null);
         SQLiteDatabase db = helper.getWritableDatabase(); // abro db para escritura
@@ -98,7 +102,18 @@ public class AltaProducto extends AppCompatActivity {
                         producto.setPrecio(Float.parseFloat(txt_precio.getText().toString()));
                         producto.setCantidad(Integer.parseInt(txt_cantidad.getText().toString()));
                         Log.d(MainActivity.class.getName(),producto.getNombre() + " ... " + producto.getId() + " ... " + producto.getDescripcion());
-
+                        if (saco_foto){
+                            try{
+                                // converting bitmap to bytearray
+                                ByteArrayOutputStream stream = new ByteArrayOutputStream();
+                                bMap.compress(Bitmap.CompressFormat.PNG, 100, stream);
+                                byte[] byteArray = stream.toByteArray();
+                                producto.setImagen(byteArray);
+                            }catch(Exception e){
+                                toast1 = Toast.makeText(getApplicationContext(),"No se pudo asociar imagen con producto...: " + " " + producto.getNombre(), Toast.LENGTH_SHORT);
+                                toast1.show();
+                            }
+                        }
 
                         productoDao.insertInTx(producto);
 
@@ -146,6 +161,7 @@ public class AltaProducto extends AppCompatActivity {
                 Intent cameraIntent = new Intent(android.provider.MediaStore.ACTION_IMAGE_CAPTURE);
                 startActivityForResult(cameraIntent, 1);
                 //https://www.youtube.com/watch?v=IMomzqwTuKA
+                //http://codictados.com/guardar-imagenes-en-la-memoria-interna-del-dispositivo/
             }
         });
 
@@ -158,12 +174,52 @@ public class AltaProducto extends AppCompatActivity {
         if (requestCode == 1 && resultCode == RESULT_OK) {
             // Creamos un bitmap con la imagen recientemente
             // almacenada en la memoria
+            saco_foto = true;
             Bundle extras = data.getExtras();
-            Bitmap bMap = (Bitmap) extras.get("data");
+            bMap = (Bitmap) extras.get("data");
             //Añadimos el bitmap al imageView para
             // mostrarlo por pantalla
             img.setImageBitmap(bMap);
+        /*
+        Toast toast1;
+        try{
 
+
+            Producto producto = new Producto();
+            producto.setNombre("Prueba Imagen");
+            producto.setCodigo(1000);
+            producto.setDescripcion("Imagen lalalala");
+            // converting bitmap to bytearray
+            ByteArrayOutputStream stream = new ByteArrayOutputStream();
+            bMap.compress(Bitmap.CompressFormat.PNG, 100, stream);
+            byte[] byteArray = stream.toByteArray();
+            producto.setImagen(byteArray);
+            producto.setCantidad(100);
+            producto.setPrecio(200);
+            productoDao.insertInTx(producto);
+            */
+
+            /*
+            List<Producto> productos = productoDao.loadAll();
+            for(Producto prod : productos){
+                if (prod.getCodigo()==1000){
+                    byte[] bitmapdata = prod.getImagen(); // let this be your byte array
+                    Bitmap bitmap = BitmapFactory.decodeByteArray(bitmapdata , 0, bitmapdata .length);
+                    img.setImageBitmap(bitmap);
+                    break;
+                }
+
+
+            }
+
+
+            toast1 = Toast.makeText(getApplicationContext(),"Perfecto con la imagen...", Toast.LENGTH_SHORT);
+            toast1.show();
+        }catch(Exception e){
+
+            toast1 = Toast.makeText(getApplicationContext(),"Error con la imagen...", Toast.LENGTH_SHORT);
+            toast1.show();
+        }*/
 
         }
     }

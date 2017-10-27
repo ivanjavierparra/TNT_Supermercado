@@ -90,6 +90,14 @@
                 tools:fontFamily="sans-serif-condensed"
                 tools:textSize="24sp" />
 
+            <ImageView
+                android:id="@+id/iv_imagen"
+                android:layout_width="match_parent"
+                android:layout_height="94dp"
+                app:srcCompat="@android:drawable/ic_menu_camera"
+                tools:layout_editor_absoluteX="8dp"
+                tools:layout_editor_absoluteY="0dp" />
+
             <ListView
                 android:id="@+id/list_productos"
                 android:layout_width="match_parent"

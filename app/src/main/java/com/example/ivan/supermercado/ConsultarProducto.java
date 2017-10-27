@@ -2,6 +2,8 @@ package com.example.ivan.supermercado;
 
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -11,6 +13,7 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.Toast;
 
@@ -32,6 +35,7 @@ public class ConsultarProducto extends AppCompatActivity {
     private ArrayAdapter adaptador;
     private CheckBox ckbNombre;
     private CheckBox ckbCodigo;
+    private ImageView img;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,11 +49,15 @@ public class ConsultarProducto extends AppCompatActivity {
         lv = (ListView)findViewById(R.id.list_productos);
         ckbNombre = (CheckBox) findViewById(R.id.ckb_nombre);
         ckbCodigo = (CheckBox) findViewById(R.id.ckb_codigo);
+        img = (ImageView) findViewById(R.id.iv_imagen);
         //adaptador = new ArrayAdapter(this,android.R.layout.simple_expandable_list_item_1,lista_mostrar);
         //lv.setAdapter(adaptador);
 
         ckbNombre.setChecked(true);
         ckbCodigo.setChecked(true);
+        img.setVisibility(View.INVISIBLE);
+        //img.setImageResource(R.drawable.ic_menu_camera);
+        //https://stackoverflow.com/questions/13397709/android-hide-imageview
         lista_mostrar = new ArrayList();
 
         btnBuscar.setOnClickListener(new View.OnClickListener(){
@@ -225,6 +233,7 @@ public class ConsultarProducto extends AppCompatActivity {
         lista_mostrar = new ArrayList();
         ArrayAdapter ad = new ArrayAdapter(ConsultarProducto.this,android.R.layout.simple_expandable_list_item_1,lista_mostrar);
         lv.setAdapter(ad);
+        img.setVisibility(View.INVISIBLE);
     }
 
 
@@ -241,7 +250,13 @@ public class ConsultarProducto extends AppCompatActivity {
                 lista_mostrar.add("Descripcion: " + prod.getDescripcion());
                 lista_mostrar.add("Cantidad: " + prod.getCantidad());
                 lista_mostrar.add("Precio: $" + prod.getPrecio());
-
+                if (prod.getImagen() != null){
+                    //Pasando byte array a bitmap
+                    byte[] bitmapdata = prod.getImagen(); // let this be your byte array
+                    Bitmap bitmap = BitmapFactory.decodeByteArray(bitmapdata , 0, bitmapdata .length);
+                    img.setImageBitmap(bitmap);
+                    img.setVisibility(View.VISIBLE);
+                }
                 ArrayAdapter ad = new ArrayAdapter(ConsultarProducto.this,android.R.layout.simple_expandable_list_item_1,lista_mostrar);
                 lv.setAdapter(ad);
 
@@ -266,7 +281,13 @@ public class ConsultarProducto extends AppCompatActivity {
                 lista_mostrar.add("Descripcion: " + prod.getDescripcion());
                 lista_mostrar.add("Cantidad: " + prod.getCantidad());
                 lista_mostrar.add("Precio: $" + prod.getPrecio());
-
+                if (prod.getImagen() != null){
+                    //Pasando byte array a bitmap
+                    byte[] bitmapdata = prod.getImagen(); // let this be your byte array
+                    Bitmap bitmap = BitmapFactory.decodeByteArray(bitmapdata , 0, bitmapdata .length);
+                    img.setImageBitmap(bitmap);
+                    img.setVisibility(View.VISIBLE);
+                }
                 ArrayAdapter ad = new ArrayAdapter(ConsultarProducto.this,android.R.layout.simple_expandable_list_item_1,lista_mostrar);
                 lv.setAdapter(ad);
 
@@ -292,7 +313,13 @@ public class ConsultarProducto extends AppCompatActivity {
                 lista_mostrar.add("Descripcion: " + prod.getDescripcion());
                 lista_mostrar.add("Cantidad: " + prod.getCantidad());
                 lista_mostrar.add("Precio: $" + prod.getPrecio());
-
+                if (prod.getImagen() != null){
+                    //Pasando byte array a bitmap
+                    byte[] bitmapdata = prod.getImagen(); // let this be your byte array
+                    Bitmap bitmap = BitmapFactory.decodeByteArray(bitmapdata , 0, bitmapdata .length);
+                    img.setImageBitmap(bitmap);
+                    img.setVisibility(View.VISIBLE);
+                }
                 ArrayAdapter ad = new ArrayAdapter(ConsultarProducto.this,android.R.layout.simple_expandable_list_item_1,lista_mostrar);
                 lv.setAdapter(ad);
 
