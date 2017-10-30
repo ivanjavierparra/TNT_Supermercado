@@ -6,7 +6,10 @@ import android.content.Intent;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.DatePicker;
@@ -34,9 +37,10 @@ public class AltaVenta extends AppCompatActivity {
     private Button btnBuscar;
     private EditText txtFecha;
     private EditText txtCantidad;
-    //private EditText txtMonto;
+    private EditText txtMonto;
     private int dia,mes,ano;
     private float precioFinal;
+    private float precio_txt_monto;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -49,7 +53,7 @@ public class AltaVenta extends AppCompatActivity {
         btnBuscar = (Button) findViewById(R.id.btn_buscar);
         txtFecha = (EditText) findViewById(R.id.txt_fecha);
         txtCantidad = (EditText) findViewById(R.id.txt_cantidad);
-        //txtMonto = (EditText) findViewById(R.id.txt_monto);
+        txtMonto = (EditText) findViewById(R.id.txt_monto);
 
 
 
@@ -209,10 +213,85 @@ public class AltaVenta extends AppCompatActivity {
             }
         });
 
+        txtCantidad.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick (View v){
+                List<Producto> productos = productoDao.loadAll();
+                if (!productos.isEmpty()){
+                    String nombreProducto = cmbProductos.getSelectedItem().toString();
+                    for(Producto prod : productos){
+                        if (prod.getNombre().equals(nombreProducto)){
+                            precio_txt_monto = prod.getPrecio();
+                            break;
+                        }
+                    }
+
+                    //Toast toast1;
+                    //toast1 = Toast.makeText(getApplicationContext(),"Precio de " + nombreProducto + " es: " + precio_txt_monto, Toast.LENGTH_SHORT);
+                    //toast1.show();
+                }
 
 
+            }
+        });
 
+        txtCantidad.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            public void onFocusChange(View v, boolean hasFocus) {
+                if(hasFocus) {
+                    //Toast toast1;
+                    //toast1 = Toast.makeText(getApplicationContext(),"Tengo el Foco!!!" + precio_txt_monto, Toast.LENGTH_SHORT);
+                    //toast1.show();
+                    List<Producto> productos = productoDao.loadAll();
+                    if (!productos.isEmpty()){
+                        String nombreProducto = cmbProductos.getSelectedItem().toString();
+                        for(Producto prod : productos){
+                            if (prod.getNombre().equals(nombreProducto)){
+                                precio_txt_monto = prod.getPrecio();
+                                break;
+                            }
+                        }
+                    }
+                }
+            }
+        });
 
+        txtCantidad.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                if (txtCantidad.getText().toString().compareToIgnoreCase("")==0){
+                    txtMonto.setText("");
+                }else{
+                    int number = Integer.parseInt(s.toString());
+                    txtMonto.setText("$" + number * precio_txt_monto);
+                }
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+
+            }
+        });
+
+        cmbProductos.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parentView, View selectedItemView, int position, long id) {
+                // your code here
+                txtCantidad.setText("");
+                txtMonto.setText("");
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parentView) {
+                // your code here
+            }
+
+        });
 
     }
 
